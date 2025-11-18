@@ -1,0 +1,12 @@
+{
+  "//": "VS Code workspace settings for consistent 4-space/tab indentation enforced via ESLint.",
+  "editor.detectIndentation": true,
+  "editor.tabSize": 4,
+  "editor.insertSpaces": false,
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+  "eslint.validate": ["javascript", "javascriptreact"],
+  "eslint.format.enable": true
+}

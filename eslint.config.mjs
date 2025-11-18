@@ -34,7 +34,9 @@ export default defineConfig([
       ...pluginReactNative.configs.all.rules,
       "react/react-in-jsx-scope": "off",
       "react/jsx-filename-extension": ["warn", { extensions: [".js", ".jsx"] }],
-      "react-native/no-inline-styles": "warn",
+      "react-native/no-inline-styles": "off",
+      "react-native/no-color-literals": "off",
+      "react/prop-types": "off",
     },
     settings: {
       react: {
