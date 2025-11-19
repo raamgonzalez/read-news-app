@@ -1,20 +1,22 @@
-import Constants from "expo-constants";
-import { View } from "react-native";
+import { StyleSheet, View } from "react-native";
+import { Link } from "expo-router";
+
 import TextStyle from "../ui/TextStyle";
-import theme from "../theme";
-import { StyleSheet } from "react-native";
+import theme from "../constants/theme";
 
 const AppBar = () => {
   return (
     <View style={styles.container}>
-      <TextStyle
-        color={theme.appBar.primary}
-        fontWeight="bold"
-        fontFamily={theme.fonts.serif}
-        fontSize={25}
-      >
-        NewsPapers
-      </TextStyle>
+      <Link href="/" asChild>
+        <TextStyle
+          color={theme.appBar.primary}
+          fontWeight="bold"
+          fontFamily={theme.fonts.serif}
+          fontSize={25}
+        >
+          NewsPapers
+        </TextStyle>
+      </Link>
     </View>
   );
 };
@@ -22,9 +24,10 @@ const AppBar = () => {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: theme.colors.background,
-    paddingBottom: 10,
+    flexDirection: "row",
+    justifyContent: "space-between",
     paddingLeft: 10,
-    paddingTop: Constants.statusBarHeight + 20,
+    paddingRight: 16,
   },
 });
 
