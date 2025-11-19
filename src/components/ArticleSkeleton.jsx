@@ -2,7 +2,7 @@
 import { useEffect, useRef } from "react";
 import { Animated, Easing, StyleSheet, View } from "react-native";
 
-import theme from "../theme";
+import theme from "../constants/theme";
 
 const PLACEHOLDERS = Array.from({ length: 8 }, (_, index) => index);
 

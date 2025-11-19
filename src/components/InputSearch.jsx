@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { StyleSheet, TextInput } from "react-native";
 
-import theme from "../theme";
+import theme from "../constants/theme";
 import TextStyle from "../ui/TextStyle";
 
 const InputSearch = ({
@@ -13,8 +13,6 @@ const InputSearch = ({
 }) => {
   const [isFocused, setIsFocused] = useState(false);
   const hasError = Boolean(error);
-  console.log(error);
-
   return (
     <>
       <TextInput

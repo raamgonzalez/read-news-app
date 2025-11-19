@@ -1,12 +1,14 @@
 import { FlatList, StyleSheet, View } from "react-native";
-import ArticleItem from "./ArticleItem";
-import theme from "../theme";
+import { AnimatedArticleItem } from "./ArticleItem";
+import theme from "../constants/theme";
 
 const ArticlesList = ({ articles }) => (
   <FlatList
     data={articles}
-    keyExtractor={(item, index) => `${item.title}-${index}`}
-    renderItem={ArticleItem}
+    keyExtractor={(item) => item.id}
+    renderItem={({ item, index }) => (
+      <AnimatedArticleItem article={item} index={index} />
+    )}
     ItemSeparatorComponent={
       <View
         style={{
