@@ -1,41 +1,38 @@
-import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
-import Constants from "expo-constants";
+import { useState } from "react";
+import { StyleSheet, View } from "react-native";
 
 import ArticlesList from "../components/ArticlesList";
+import ArticleSkeleton from "../components/ArticleSkeleton";
+import InputSearch from "../components/InputSearch";
+import AppBar from "../components/AppBar";
+import theme from "../theme";
 import useNewsSearch from "../hooks/useNewsSearch";
 
 const Main = () => {
-  const { articles, loading, error } = useNewsSearch({ query: "argentina" });
+  const [query, setQuery] = useState("");
+  const { articles, loading, error } = useNewsSearch({ query });
+
+  const handleSearch = (q) => {
+    setQuery(q);
+  };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.heading}>Read Newspaper</Text>
-      {loading ? (
-        <ActivityIndicator size="large" />
-      ) : error ? (
-        <Text style={styles.errorText}>{error}</Text>
-      ) : (
-        <ArticlesList articles={articles} />
-      )}
+    <View style={{ flex: 1 }}>
+      <AppBar />
+      <View style={styles.container} className="bg-orange-900">
+        <InputSearch error={error} onChangeText={handleSearch} value={query} />
+        {loading ? <ArticleSkeleton /> : <ArticlesList articles={articles} />}
+      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: theme.colors.background,
     flex: 1,
-    marginTop: Constants.statusBarHeight,
     paddingHorizontal: 16,
-    paddingTop: 16,
-  },
-  errorText: {
-    color: "red",
-    fontSize: 16,
-  },
-  heading: {
-    fontSize: 24,
-    fontWeight: "bold",
-    marginBottom: 12,
+    paddingVertical: 16,
   },
 });
 

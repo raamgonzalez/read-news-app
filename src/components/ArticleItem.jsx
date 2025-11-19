@@ -1,12 +1,18 @@
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image, StyleSheet, View } from "react-native";
+import TextStyle from "../ui/TextStyle";
+import theme from "../theme";
 
 const ArticleItem = ({ item = {} }) => (
   <View style={styles.articleCard}>
     <View style={styles.contentCard}>
       {item.source?.name ? (
-        <Text style={styles.articleSource}>{item.source.name}</Text>
+        <TextStyle fontSize={theme.fontSizes.author}>
+          {item.source.name}
+        </TextStyle>
       ) : null}
-      <Text style={styles.articleTitle}>{item.title}</Text>
+      <TextStyle fontSize={theme.fontSizes.subheading} fontWeight="bold">
+        {item.title}
+      </TextStyle>
     </View>
     <Image style={styles.articleImage} source={{ uri: item.urlToImage }} />
   </View>
@@ -19,18 +25,8 @@ const styles = StyleSheet.create({
     gap: 16,
     paddingVertical: 12,
   },
-  articleImage: { height: 64, width: 64 },
-  articleSource: {
-    color: "#666",
-    fontSize: 12,
-    fontStyle: "italic",
-    marginBottom: 6,
-  },
-  articleTitle: {
-    fontSize: 16,
-    fontWeight: "600",
-  },
-  contentCard: { flex: 1, gap: 2, justifyContent: "center" },
+  articleImage: { borderRadius: 4, height: 64, overflow: "hidden", width: 64 },
+  contentCard: { flex: 1, gap: 4, justifyContent: "center" },
 });
 
 export default ArticleItem;

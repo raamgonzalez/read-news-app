@@ -1,27 +1,21 @@
 import { FlatList, StyleSheet, View } from "react-native";
 import ArticleItem from "./ArticleItem";
+import theme from "../theme";
 
 const ArticlesList = ({ articles }) => (
   <FlatList
     data={articles}
     keyExtractor={(item, index) => `${item.title}-${index}`}
     renderItem={ArticleItem}
-    contentContainerStyle={styles.listContent}
     ItemSeparatorComponent={
       <View
         style={{
-          borderBottomColor: "#ddd",
+          borderBottomColor: theme.colors.accent,
           borderBottomWidth: StyleSheet.hairlineWidth,
         }}
       />
     }
   />
 );
-
-const styles = StyleSheet.create({
-  listContent: {
-    paddingVertical: 24,
-  },
-});
 
 export default ArticlesList;
