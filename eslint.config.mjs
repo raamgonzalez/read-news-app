@@ -38,6 +38,7 @@ export default defineConfig([
       "react-native/no-color-literals": "off",
       "react/prop-types": "off",
       "react-native/no-raw-text": "off",
+      "react-hooks/refs": "off",
     },
     settings: {
       react: {
