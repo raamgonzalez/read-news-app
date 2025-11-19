@@ -37,6 +37,7 @@ export default defineConfig([
       "react-native/no-inline-styles": "off",
       "react-native/no-color-literals": "off",
       "react/prop-types": "off",
+      "react-native/no-raw-text": "off",
     },
     settings: {
       react: {
