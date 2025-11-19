@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { fetchEverything } from "../services/newsApi";
+import { fetchEverything } from "../services/guardianApi";
 
 const useNewsSearch = ({
   query,
@@ -23,17 +23,17 @@ const useNewsSearch = ({
     const loadArticles = async () => {
       try {
         setLoading(true);
-        const response = await fetchEverything({
+        const articlesResponse = await fetchEverything({
           query,
           sortBy,
           page,
           pageSize,
         });
 
-        setArticles(response.articles ?? []);
+        setArticles(articlesResponse ?? []);
         setError(null);
       } catch (err) {
-        setError(err.message);
+        setError(err?.message ?? "Error al consultar la API de The Guardian.");
       } finally {
         setLoading(false);
       }
