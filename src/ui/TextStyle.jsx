@@ -1,5 +1,5 @@
 import { Text, StyleSheet } from "react-native";
-import theme from "../constants/theme.js";
+import theme from "@constants/theme.js";
 
 const styles = StyleSheet.create({
   text: {
@@ -16,7 +16,6 @@ const TextStyle = ({
   color,
   fontSize,
   fontWeight,
-  fontFamily,
   style,
   ...restOfProps
 }) => {
@@ -26,7 +25,6 @@ const TextStyle = ({
     align && { textAlign: align },
     fontSize && { fontSize },
     fontWeight && { fontWeight },
-    fontFamily && { fontFamily },
     style,
   ];
 

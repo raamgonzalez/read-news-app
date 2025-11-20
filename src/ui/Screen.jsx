@@ -1,15 +1,17 @@
 import { View } from "react-native";
-import theme from "../constants/theme";
+import theme from "@constants/theme";
 
-const Screen = ({ children }) => {
+const Screen = ({ children, paddingHorizontal = 16, style }) => {
   return (
     <View
-      style={{
-        backgroundColor: theme.colors.background,
-        paddingVertical: 16,
-        flex: 1,
-        paddingHorizontal: 16,
-      }}
+      style={[
+        {
+          backgroundColor: theme.colors.surface,
+          flex: 1,
+          paddingHorizontal,
+        },
+        style,
+      ]}
     >
       {children}
     </View>
