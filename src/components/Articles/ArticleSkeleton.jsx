@@ -1,8 +1,7 @@
-/* eslint-disable react-hooks/refs */
 import { useEffect, useRef } from "react";
 import { Animated, Easing, StyleSheet, View } from "react-native";
 
-import theme from "../constants/theme";
+import theme from "@constants/theme";
 
 const PLACEHOLDERS = Array.from({ length: 8 }, (_, index) => index);
 
@@ -63,13 +62,13 @@ const styles = StyleSheet.create({
   },
   lineLong: {
     backgroundColor: theme.colors.skeletonLine,
-    borderRadius: 4,
+    borderRadius: theme.borderRadius.small,
     height: 14,
     width: "80%",
   },
   lineShort: {
     backgroundColor: theme.colors.skeletonLine,
-    borderRadius: 4,
+    borderRadius: theme.borderRadius.small,
     height: 12,
     width: "60%",
   },
@@ -84,7 +83,7 @@ const styles = StyleSheet.create({
   },
   thumbnail: {
     backgroundColor: theme.colors.skeletonBlock,
-    borderRadius: 12,
+    borderRadius: theme.borderRadius.medium,
     height: 64,
     width: 64,
   },
