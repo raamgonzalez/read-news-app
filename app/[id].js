@@ -1,33 +1,87 @@
-import { Link } from "expo-router";
-import { ScrollView, StyleSheet, View } from "react-native";
-import { useLocalSearchParams } from "expo-router";
-import Screen from "../src/ui/Screen";
+import { ActivityIndicator, Image, ScrollView, StyleSheet } from "react-native";
+import { Link, Stack, useLocalSearchParams } from "expo-router";
+
+import Screen from "..@ui/Screen";
+import TextStyle from "..@ui/TextStyle";
+import theme from "..@constants/theme";
+import useArticle from "..@hooks/useArticle";
+import { BackArrowIcon } from "..@ui/icons";
+import AnimatedIconButton from "..@ui/AnimatedIconButton";
+
+import HeaderRightDetail from "..@components/HeaderRightDetail";
+import useFavoritesNewsStore from "..@store/useFavoritesNewsStore";
 
 const Detail = () => {
   const { id } = useLocalSearchParams();
+  const { toggleFavorite, isFavorite } = useFavoritesNewsStore();
+  const { article, loading, error } = useArticle(id);
+
+  const marked = article?.id ? isFavorite(article.id) : false;
+  const handleToggleFavorite = () => article && toggleFavorite(article);
 
   return (
-    <Screen>
+    <Screen paddingHorizontal={0} paddingVertical={0}>
+      <Stack.Screen
+        options={{
+          headerStyle: { backgroundColor: theme.colors.surface },
+          headerLeft: () => (
+            <Link asChild href="/">
+              <AnimatedIconButton variant="pop" style={{ padding: 6 }}>
+                <BackArrowIcon color={theme.colors.warning} />
+              </AnimatedIconButton>
+            </Link>
+          ),
+          headerTintColor: theme.colors.accent,
+          headerRight: () => (
+            <HeaderRightDetail
+              toggleBookmark={handleToggleFavorite}
+              bookmarked={marked}
+            />
+          ),
+        }}
+      />
+      <Image source={{ uri: article?.urlToImage }} style={styles.cover} />
       <ScrollView contentContainerStyle={styles.container}>
-        <View style={styles.card}>
-          <Link href="/">{id}</Link>
-        </View>
+        {loading ? (
+          <ActivityIndicator size="large" color={theme.colors.textPrimary} />
+        ) : error ? (
+          <TextStyle color={theme.colors.warning} align="center">
+            {error}
+          </TextStyle>
+        ) : (
+          <Screen>
+            {article?.author ? (
+              <TextStyle
+                fontSize={theme.fontSizes.author}
+                color={theme.colors.warning}
+              >
+                {article.author}
+              </TextStyle>
+            ) : null}
+            <Screen style={{ paddingHorizontal: 0, gap: 16 }}>
+              <TextStyle fontSize={theme.fontSizes.heading} fontWeight="bold">
+                {article?.title}
+              </TextStyle>
+              <TextStyle color={theme.colors.textSecondary}>
+                {article.description}
+              </TextStyle>
+            </Screen>
+          </Screen>
+        )}
       </ScrollView>
     </Screen>
   );
 };
 const styles = StyleSheet.create({
-  card: {
-    backgroundColor: "#fff",
-    borderRadius: 12,
-    elevation: 2,
-    padding: 16,
-  },
   container: {
     alignItems: "center",
     flexGrow: 1,
     justifyContent: "center",
-    padding: 16,
+    paddingTop: 16,
+  },
+  cover: {
+    height: 240,
+    width: "100%",
   },
 });
 

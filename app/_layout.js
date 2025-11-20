@@ -1,22 +1,31 @@
 import { Stack } from "expo-router";
-import { View } from "react-native";
-import theme from "../src/constants/theme";
-import AppBar from "../src/components/AppBar";
-import { Logo } from "../src/ui/icons";
+import theme from "..@constants/theme";
+import { Logo } from "..@ui/icons";
+import NameLogo from "..@ui/NameLogo";
+import { StatusBar } from "react-native";
 
 const Layout = () => {
   return (
-    <View style={{ flex: 1 }}>
+    <>
+      <StatusBar
+        backgroundColor={theme.colors.background}
+        barStyle="light-content"
+      />
       <Stack
         screenOptions={{
-          headerStyle: { backgroundColor: theme.colors.background },
-          headerTintColor: theme.colors.textPrimary,
+          headerStyle: {
+            backgroundColor: theme.colors.background,
+            shadowColor: "transparent",
+            elevation: 0,
+            borderBottomWidth: 0,
+          },
+          headerShadowVisible: false,
           headerTitle: "",
-          headerLeft: () => <Logo />,
-          headerRight: () => <AppBar />,
+          headerLeft: () => <Logo color={theme.colors.textTitle} />,
+          headerRight: () => <NameLogo />,
         }}
       />
-    </View>
+    </>
   );
 };
 
