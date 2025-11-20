@@ -60,3 +60,32 @@ export const fetchEverything = async ({
   const articles = payload?.response?.results ?? [];
   return articles.map(normalizeArticle);
 };
+
+export const fetchArticleById = async (id) => {
+  if (!id) {
+    throw new Error("Es necesario proporcionar un id de artículo.");
+  }
+
+  const url = buildUrl(id);
+  const response = await fetch(url);
+  const payload = await response.json();
+
+  if (!response.ok || payload?.response?.status === "error") {
+    const message =
+      payload?.message ||
+      payload?.response?.message ||
+      payload?.response?.status ||
+      "Unknown Guardian API error";
+    throw new Error(`Guardian API error (${response.status}): ${message}`);
+  }
+
+  const article = payload?.response?.content;
+
+  if (!article) {
+    throw new Error("No se encontró información del artículo solicitado.");
+  }
+
+  console.log({ article });
+
+  return normalizeArticle(article);
+};

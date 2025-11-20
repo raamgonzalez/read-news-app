@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { fetchEverything } from "../services/guardianApi";
+import { fetchEverything } from "@services/guardianApi";
 
 const useNewsSearch = ({
   query,
