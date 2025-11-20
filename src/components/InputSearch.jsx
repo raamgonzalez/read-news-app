@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { StyleSheet, TextInput } from "react-native";
 
-import theme from "../constants/theme";
-import TextStyle from "../ui/TextStyle";
+import theme from "@constants/theme";
+import TextStyle from "@ui/TextStyle";
 
 const InputSearch = ({
   value,
@@ -46,11 +46,10 @@ const styles = StyleSheet.create({
   input: {
     backgroundColor: theme.colors.surface,
     borderColor: theme.colors.textSecondary,
-    borderRadius: 8,
+    borderRadius: theme.borderRadius.medium,
     borderWidth: 1,
     color: theme.colors.textPrimary,
     elevation: 2,
-    fontFamily: theme.fonts.main,
     height: 48,
     paddingHorizontal: 12,
     shadowColor: "#000",
@@ -62,7 +61,7 @@ const styles = StyleSheet.create({
     borderColor: theme.colors.warning,
   },
   inputFocused: {
-    borderColor: theme.colors.accent,
+    borderColor: theme.colors.background,
     shadowOpacity: 0.15,
   },
 });

@@ -5,13 +5,13 @@ const theme = {
     textPrimary: "#ffffff",
   },
   colors: {
-    background: "#fdfaf5",
+    background: "#052863",
     surface: "#ffffff",
     textPrimary: "#1c1b1a",
     textSecondary: "#5f5a54",
+    textTitle: "#ffff",
     warning: "#b5121b",
-    accent: "#e1b382",
-    white: "#ffffff",
+    accent: "#fee501",
     skeletonBlock: "#e4ded6",
     skeletonLine: "#d9d2ca",
   },
@@ -27,7 +27,13 @@ const theme = {
   },
   fontWeights: {
     normal: "400",
+    semiBold: "600",
     bold: "700",
+  },
+  borderRadius: {
+    small: 4,
+    medium: 8,
+    large: 16,
   },
 };
 
