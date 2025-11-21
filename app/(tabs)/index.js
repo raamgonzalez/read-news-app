@@ -6,7 +6,7 @@ import ArticlesList from "@components/Articles/ArticlesList";
 import { useState } from "react";
 import useNewsSearch from "@hooks/useNewsSearch";
 
-const Index = () => {
+const HomeScreen = () => {
   const [query, setQuery] = useState("");
   const { articles, loading, error } = useNewsSearch({
     query: query || "argentina",
@@ -26,4 +26,4 @@ const Index = () => {
   );
 };
 
-export default Index;
+export default HomeScreen;

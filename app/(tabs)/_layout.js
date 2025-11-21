@@ -1,4 +1,5 @@
 import { Tabs } from "expo-router";
+import { useTranslation } from "react-i18next";
 
 import {
   BookMarkIconOutline,
@@ -10,6 +11,8 @@ import theme from "@constants/theme";
 import AnimatedTabButton from "@ui/AnimatedTabButton";
 
 const Layout = () => {
+  const { t } = useTranslation();
+
   return (
     <Tabs
       screenOptions={{
@@ -20,18 +23,23 @@ const Layout = () => {
           shadowColor: "transparent",
           borderTopWidth: 1,
           alignItems: "center",
-          paddingVertical: 4,
+          paddingTop: 4,
         },
-        headerStyle: { justifyContent: "center", alignItems: "center" },
+        headerStyle: {
+          justifyContent: "center",
+          alignItems: "center",
+        },
         tabBarActiveTintColor: theme.colors.background,
-        tabBarItemStyle: { justifyContent: "center", alignItems: "center" },
-        tabBarLabelStyle: { marginTop: 0 },
+        tabBarItemStyle: {
+          justifyContent: "center",
+          alignItems: "center",
+        },
       }}
     >
       <Tabs.Screen
         name="index"
         options={{
-          title: "Home",
+          title: t("tabs.home"),
           tabBarIcon: ({ color }) => <HomeIcon color={color} />,
           tabBarButton: (props) => <AnimatedTabButton {...props} />,
         }}
@@ -39,7 +47,7 @@ const Layout = () => {
       <Tabs.Screen
         name="about"
         options={{
-          title: "About",
+          title: t("tabs.about"),
           tabBarIcon: ({ color }) => <CircleInfoIcon color={color} />,
           tabBarButton: (props) => <AnimatedTabButton {...props} />,
         }}
@@ -47,17 +55,15 @@ const Layout = () => {
       <Tabs.Screen
         name="bookmarks"
         options={{
-          title: "Marks",
-          tabBarIcon: ({ color }) => (
-            <BookMarkIconOutline marginTop={50} color={color} />
-          ),
+          title: t("tabs.bookmarks"),
+          tabBarIcon: ({ color }) => <BookMarkIconOutline color={color} />,
           tabBarButton: (props) => <AnimatedTabButton {...props} />,
         }}
       />
       <Tabs.Screen
-        name="user"
+        name="users"
         options={{
-          title: "Users",
+          title: t("tabs.users"),
           tabBarIcon: ({ color }) => <UserIcon color={color} />,
           tabBarButton: (props) => <AnimatedTabButton {...props} />,
         }}

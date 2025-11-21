@@ -1,0 +1,26 @@
+{
+  "about": {
+    "title": "Read News App",
+    "description1": "Aplicación móvil para explorar titulares recientes, seguir artículos y leerlos con una interfaz limpia, rápida y sin distracciones.",
+    "description2": "Usa la API pública de The Guardian para búsqueda en tiempo real, carga bajo demanda y navegación con tabs optimizada para iOS y Android.",
+    "authorTitle": "Autor y objetivo",
+    "authorBody": "Proyecto desarrollado por Ramses Gonzalez para Conexa como muestra de arquitectura con React Native y Expo, manejo de estado con hooks y patrones reutilizables orientados a productos editoriales.",
+    "toolsTitle": "Herramientas y stack",
+    "toolsBody": "Se construyó con Expo Router para las rutas de tabs y stacks, hooks personalizados para peticiones (noticias y usuarios), componentes de UI reutilizables y animaciones en botones para mejorar el feedback de interacción.",
+    "badges": {
+      "expo": "Expo",
+      "router": "Expo Router",
+      "reactNative": "React Native",
+      "hooks": "Hooks",
+      "api": "Guardian API",
+      "animations": "Animaciones"
+    }
+  },
+  "tabs": {
+    "saved": "Guardados",
+    "bookmarks": "Favoritos",
+    "home": "Inicio",
+    "about": "Acerca de",
+    "users": "Usuarios"
+  }
+}

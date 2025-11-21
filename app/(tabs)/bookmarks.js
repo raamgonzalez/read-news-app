@@ -2,17 +2,22 @@ import { View } from "react-native";
 import Screen from "@ui/Screen";
 import TextStyle from "@ui/TextStyle";
 import ArticlesList from "@components/Articles/ArticlesList";
+import ArticleSkeleton from "@components/Articles/ArticleSkeleton";
 import useFavoritesNewsStore from "@store/useFavoritesNewsStore";
 import theme from "@constants/theme";
 
-const Bookmarks = () => {
+const BookmarksScreen = () => {
   const { favorites } = useFavoritesNewsStore();
+  const hydrated = useFavoritesNewsStore.persist?.hasHydrated?.() ?? true;
 
   const hasFavorites = favorites && favorites.length > 0;
+  const isLoading = !hydrated;
 
   return (
     <Screen>
-      {hasFavorites ? (
+      {isLoading ? (
+        <ArticleSkeleton variant="bookmark" />
+      ) : hasFavorites ? (
         <ArticlesList articles={favorites} variant="bookmark" />
       ) : (
         <View
@@ -27,4 +32,4 @@ const Bookmarks = () => {
   );
 };
 
-export default Bookmarks;
+export default BookmarksScreen;

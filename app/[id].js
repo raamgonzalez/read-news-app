@@ -1,17 +1,17 @@
 import { ActivityIndicator, Image, ScrollView, StyleSheet } from "react-native";
 import { Link, Stack, useLocalSearchParams } from "expo-router";
 
-import Screen from "..@ui/Screen";
-import TextStyle from "..@ui/TextStyle";
-import theme from "..@constants/theme";
-import useArticle from "..@hooks/useArticle";
-import { BackArrowIcon } from "..@ui/icons";
-import AnimatedIconButton from "..@ui/AnimatedIconButton";
+import Screen from "@ui/Screen";
+import TextStyle from "@ui/TextStyle";
+import theme from "@constants/theme";
+import useArticle from "@hooks/useArticle";
+import { BackArrowIcon } from "@ui/icons";
+import AnimatedIconButton from "@ui/AnimatedIconButton";
 
-import HeaderRightDetail from "..@components/HeaderRightDetail";
-import useFavoritesNewsStore from "..@store/useFavoritesNewsStore";
+import HeaderRightDetail from "@components/HeaderRightDetail";
+import useFavoritesNewsStore from "@store/useFavoritesNewsStore";
 
-const Detail = () => {
+const DetailArticleScreen = () => {
   const { id } = useLocalSearchParams();
   const { toggleFavorite, isFavorite } = useFavoritesNewsStore();
   const { article, loading, error } = useArticle(id);
@@ -36,6 +36,7 @@ const Detail = () => {
             <HeaderRightDetail
               toggleBookmark={handleToggleFavorite}
               bookmarked={marked}
+              articleUrl={article?.url}
             />
           ),
         }}
@@ -80,9 +81,14 @@ const styles = StyleSheet.create({
     paddingTop: 16,
   },
   cover: {
+    elevation: 10,
     height: 240,
+    shadowColor: theme.colors.background,
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.2,
+    shadowRadius: 12,
     width: "100%",
   },
 });
 
-export default Detail;
+export default DetailArticleScreen;

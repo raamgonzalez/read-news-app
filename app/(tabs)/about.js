@@ -3,8 +3,10 @@ import { ScrollView, StyleSheet, View } from "react-native";
 import Screen from "@ui/Screen";
 import TextStyle from "@ui/TextStyle";
 import theme from "@constants/theme";
+import { useTranslation } from "react-i18next";
 
-const About = () => {
+const AboutScreen = () => {
+  const { t } = useTranslation("translation");
   return (
     <Screen>
       <ScrollView contentContainerStyle={styles.container}>
@@ -13,33 +15,22 @@ const About = () => {
             fontSize={theme.fontSizes.heading}
             fontWeight={theme.fontWeights.bold}
           >
-            Read News App
+            {t("about.title")}
           </TextStyle>
-          <TextStyle style={styles.body}>
-            Aplicacion movil para explorar titulares recientes, seguir articulos
-            y leerlos con una interfaz limpia, rapida y sin distracciones.
-          </TextStyle>
-          <TextStyle style={styles.body}>
-            Usa la API publica de The Guardian para busqueda en tiempo real,
-            carga bajo demanda y navegacion con tabs optimizada para iOS y
-            Android.
-          </TextStyle>
+          <TextStyle style={styles.body}>{t("about.description1")}</TextStyle>
+          <TextStyle style={styles.body}>{t("about.description2")}</TextStyle>
         </View>
 
         <View style={styles.card}>
           <TextStyle fontWeight={theme.fontWeights.bold}>
-            Autor y objetivo
+            {t("about.authorTitle")}
           </TextStyle>
-          <TextStyle style={styles.body}>
-            Proyecto desarrollado por Ramses Gonzalez para Conexa como muestra
-            de arquitectura con React Native y Expo, manejo de estado con hooks
-            y patrones reutilizables orientados a productos editoriales.
-          </TextStyle>
+          <TextStyle style={styles.body}>{t("about.authorBody")}</TextStyle>
         </View>
 
         <View style={styles.card}>
           <TextStyle fontWeight={theme.fontWeights.bold}>
-            Herramientas y stack
+            {t("about.toolsTitle")}
           </TextStyle>
           <View style={styles.badges}>
             <View style={styles.badge}>
@@ -47,7 +38,7 @@ const About = () => {
                 fontWeight={theme.fontWeights.bold}
                 color={theme.colors.background}
               >
-                Expo
+                {t("about.badges.expo")}
               </TextStyle>
             </View>
             <View style={styles.badge}>
@@ -55,7 +46,7 @@ const About = () => {
                 fontWeight={theme.fontWeights.bold}
                 color={theme.colors.background}
               >
-                Expo Router
+                {t("about.badges.router")}
               </TextStyle>
             </View>
             <View style={styles.badge}>
@@ -63,7 +54,7 @@ const About = () => {
                 fontWeight={theme.fontWeights.bold}
                 color={theme.colors.background}
               >
-                React Native
+                {t("about.badges.reactNative")}
               </TextStyle>
             </View>
             <View style={styles.badge}>
@@ -71,7 +62,7 @@ const About = () => {
                 fontWeight={theme.fontWeights.bold}
                 color={theme.colors.background}
               >
-                Hooks
+                {t("about.badges.hooks")}
               </TextStyle>
             </View>
             <View style={styles.badge}>
@@ -79,7 +70,7 @@ const About = () => {
                 fontWeight={theme.fontWeights.bold}
                 color={theme.colors.background}
               >
-                Guardian API
+                {t("about.badges.api")}
               </TextStyle>
             </View>
             <View style={styles.badge}>
@@ -87,16 +78,11 @@ const About = () => {
                 fontWeight={theme.fontWeights.bold}
                 color={theme.colors.background}
               >
-                Animations
+                {t("about.badges.animations")}
               </TextStyle>
             </View>
           </View>
-          <TextStyle style={styles.body}>
-            Se construyo con Expo Router para las rutas de tabs y stacks, hooks
-            personalizados para peticiones (noticias y usuarios), componentes de
-            UI reutilizables y animaciones en botones para mejorar el feedback
-            de interaccion.
-          </TextStyle>
+          <TextStyle style={styles.body}>{t("about.toolsBody")}</TextStyle>
         </View>
       </ScrollView>
     </Screen>
@@ -134,4 +120,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default About;
+export default AboutScreen;

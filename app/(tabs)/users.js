@@ -13,11 +13,7 @@ import useUsers from "@hooks/useUsers";
 
 const UserCard = ({ user }) => {
   const nameParts = [user.firstname, user.lastname].filter(Boolean);
-  const fullName =
-    nameParts.join(" ") ||
-    user.login?.username ||
-    user.email ||
-    "Usuario sin nombre";
+  const fullName = nameParts.join(" ") || "Usuario sin nombre";
   const city = user.address?.city;
   const company = user.company?.name;
 
@@ -30,12 +26,8 @@ const UserCard = ({ user }) => {
       </TextStyle>
       <TextStyle color={theme.colors.textSecondary}>{user.email}</TextStyle>
       <View style={styles.metaRow}>
-        {company ? (
-          <TextStyle color={theme.colors.textSecondary}>{company}</TextStyle>
-        ) : null}
-        {city ? (
-          <TextStyle color={theme.colors.textSecondary}>{city}</TextStyle>
-        ) : null}
+        <TextStyle color={theme.colors.textSecondary}>{company}</TextStyle>
+        <TextStyle color={theme.colors.textSecondary}>{city}</TextStyle>
       </View>
     </Pressable>
   );
@@ -74,15 +66,6 @@ const UserScreen = () => {
         keyExtractor={(item) => String(item.id)}
         renderItem={({ item }) => <UserCard user={item} />}
         ItemSeparatorComponent={renderSeparator}
-        ListHeaderComponent={
-          <TextStyle
-            fontSize={24}
-            fontWeight={theme.fontWeights.bold}
-            style={styles.header}
-          >
-            Users
-          </TextStyle>
-        }
         contentContainerStyle={[
           styles.listContainer,
           (loading || error || users.length === 0) && styles.listCentered,
@@ -125,16 +108,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 32,
     paddingVertical: 24,
   },
-  header: {
-    marginBottom: 12,
-    marginTop: 8,
-  },
   listCentered: {
     flexGrow: 1,
     justifyContent: "center",
   },
   listContainer: {
-    paddingBottom: 16,
+    paddingVertical: 8,
   },
   metaRow: {
     flexDirection: "row",
