@@ -1,5 +1,5 @@
 import { forwardRef, useRef } from "react";
-import { Animated, Pressable, StyleSheet } from "react-native";
+import { Animated, Pressable, StyleSheet, View } from "react-native";
 
 const VARIANTS = {
   shrink: {
@@ -15,7 +15,7 @@ const VARIANTS = {
 };
 
 const AnimatedIconButton = forwardRef(
-  ({ children, style, variant = "shrink", ...rest }, ref) => {
+  ({ children, style, animatedStyle, variant = "shrink", ...rest }, ref) => {
     const animValue = useRef(new Animated.Value(1)).current;
     const config = VARIANTS[variant] || VARIANTS.shrink;
 
@@ -44,7 +44,7 @@ const AnimatedIconButton = forwardRef(
         style={({ pressed }) => resolveStyle(pressed)}
         {...rest}
       >
-        <Animated.View style={config.viewStyle(animValue)}>
+        <Animated.View style={[config.viewStyle(animValue), animatedStyle]}>
           {children}
         </Animated.View>
       </Pressable>
@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderRadius: 100,
     justifyContent: "center",
-    padding: 8,
+    padding: 0, // ← FIX
   },
   pressed: {
     opacity: 0.9,

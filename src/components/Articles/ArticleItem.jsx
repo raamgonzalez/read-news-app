@@ -73,41 +73,45 @@ export const BookmarkArticleItem = ({ article }) => {
   const marked = article?.id ? isFavorite(article.id) : false;
   const handleToggleFavorite = () => article && toggleFavorite(article);
   return (
-    <>
-      <Link
-        asChild
-        href={{
-          pathname: "/[id]",
-          params: { id: articleParam },
-        }}
-      >
-        <Pressable style={styles.bookmarkRow}>
-          <Image
-            style={styles.bookmarkImage}
-            source={{ uri: article.urlToImage }}
-            resizeMode="cover"
-          />
-          <View style={styles.bookmarkContent}>
+    <Link
+      asChild
+      href={{
+        pathname: "/[id]",
+        params: { id: articleParam },
+      }}
+    >
+      <Pressable style={styles.bookmarkRow}>
+        <Image
+          style={styles.bookmarkImage}
+          source={{ uri: article.urlToImage }}
+          resizeMode="cover"
+        />
+        <View style={styles.bookmarkContent}>
+          <TextStyle
+            fontSize={theme.fontSizes.subheading}
+            fontWeight={theme.fontWeights.semiBold}
+            numberOfLines={2}
+          >
+            {article.title}
+          </TextStyle>
+          {article.source?.name ? (
             <TextStyle
-              fontSize={theme.fontSizes.subheading}
-              fontWeight={theme.fontWeights.semiBold}
-              numberOfLines={2}
+              fontSize={theme.fontSizes.author}
+              color={theme.colors.textSecondary}
             >
-              {article.title}
+              {article.source.name}
             </TextStyle>
-            {article.source?.name ? (
-              <TextStyle
-                fontSize={theme.fontSizes.author}
-                color={theme.colors.textSecondary}
-              >
-                {article.source.name}
-              </TextStyle>
-            ) : null}
-          </View>
-        </Pressable>
-      </Link>
-      <IconBookMark toggleBookmark={handleToggleFavorite} bookmarked={marked} />
-    </>
+          ) : null}
+        </View>
+        <View style={{ alignSelf: "flex-start" }}>
+          <IconBookMark
+            toggleBookmark={handleToggleFavorite}
+            bookmarked={marked}
+            size={20}
+          />
+        </View>
+      </Pressable>
+    </Link>
   );
 };
 

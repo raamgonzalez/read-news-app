@@ -3,9 +3,12 @@ import { Animated, Easing, StyleSheet, View } from "react-native";
 
 import theme from "@constants/theme";
 
-const PLACEHOLDERS = Array.from({ length: 8 }, (_, index) => index);
+const DEFAULT_PLACEHOLDERS = {
+  feed: 4,
+  bookmark: 6,
+};
 
-const ArticleSkeleton = () => {
+const ArticleSkeleton = ({ variant = "feed", placeholders }) => {
   const progress = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
@@ -40,52 +43,82 @@ const ArticleSkeleton = () => {
     }),
   };
 
+  const total =
+    placeholders ??
+    DEFAULT_PLACEHOLDERS[variant] ??
+    DEFAULT_PLACEHOLDERS.feed;
+
+  const items = Array.from({ length: total }, (_, index) => index);
+
   return (
     <View style={styles.container}>
-      {PLACEHOLDERS.map((item) => (
-        <View key={item} style={styles.row}>
-          <Animated.View style={[styles.meta, shimmerStyle]}>
-            <View style={styles.lineShort} />
-            <View style={styles.lineLong} />
-          </Animated.View>
-          <Animated.View style={[styles.thumbnail, shimmerStyle]} />
-        </View>
-      ))}
+      {items.map((item) =>
+        variant === "bookmark" ? (
+          <View key={item} style={styles.bookmarkRow}>
+            <Animated.View style={[styles.bookmarkThumb, shimmerStyle]} />
+            <View style={styles.bookmarkMeta}>
+              <Animated.View style={[styles.lineSmall, shimmerStyle]} />
+              <Animated.View style={[styles.lineBig, shimmerStyle]} />
+            </View>
+          </View>
+        ) : (
+          <View key={item} style={styles.card}>
+            <Animated.View style={[styles.meta, shimmerStyle]}>
+              <View style={styles.lineSmall} />
+              <View style={styles.lineBig} />
+            </Animated.View>
+            <Animated.View style={[styles.hero, shimmerStyle]} />
+          </View>
+        )
+      )}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    gap: 16,
-    paddingTop: 16,
+    gap: 20,
+    paddingTop: 12,
   },
-  lineLong: {
+  card: {
+    gap: 12,
+  },
+  hero: {
+    backgroundColor: theme.colors.skeletonBlock,
+    borderRadius: theme.borderRadius.medium,
+    height: 220,
+    width: "100%",
+  },
+  lineBig: {
     backgroundColor: theme.colors.skeletonLine,
     borderRadius: theme.borderRadius.small,
-    height: 14,
-    width: "80%",
+    height: 16,
+    width: "90%",
   },
-  lineShort: {
+  lineSmall: {
     backgroundColor: theme.colors.skeletonLine,
     borderRadius: theme.borderRadius.small,
     height: 12,
-    width: "60%",
+    width: "65%",
   },
   meta: {
-    flex: 1,
     gap: 8,
+    paddingHorizontal: 4,
   },
-  row: {
-    alignItems: "center",
+  bookmarkRow: {
     flexDirection: "row",
-    gap: 16,
+    alignItems: "center",
+    gap: 12,
   },
-  thumbnail: {
+  bookmarkThumb: {
     backgroundColor: theme.colors.skeletonBlock,
     borderRadius: theme.borderRadius.medium,
     height: 64,
     width: 64,
+  },
+  bookmarkMeta: {
+    flex: 1,
+    gap: 8,
   },
 });
 

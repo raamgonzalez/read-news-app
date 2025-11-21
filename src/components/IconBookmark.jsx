@@ -2,7 +2,7 @@ import theme from "@constants/theme";
 import AnimatedIconButton from "@ui/AnimatedIconButton";
 import { BookMarkIconOutline, BookMarkIconSolid } from "@ui/icons";
 
-const IconBookMark = ({ toggleBookmark, bookmarked }) => {
+const IconBookMark = ({ toggleBookmark, bookmarked, size }) => {
   return (
     <AnimatedIconButton
       variant="pop"
@@ -10,9 +10,9 @@ const IconBookMark = ({ toggleBookmark, bookmarked }) => {
       style={{ padding: 6 }}
     >
       {bookmarked ? (
-        <BookMarkIconSolid color={theme.colors.warning} />
+        <BookMarkIconSolid color={theme.colors.warning} size={size} />
       ) : (
-        <BookMarkIconOutline color={theme.colors.warning} />
+        <BookMarkIconOutline color={theme.colors.warning} size={size} />
       )}
     </AnimatedIconButton>
   );
