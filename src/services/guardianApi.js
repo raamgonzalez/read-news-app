@@ -85,7 +85,5 @@ export const fetchArticleById = async (id) => {
     throw new Error("No se encontró información del artículo solicitado.");
   }
 
-  console.log({ article });
-
   return normalizeArticle(article);
 };

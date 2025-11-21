@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 
 import { fetchEverything } from "@services/guardianApi";
 
@@ -8,41 +8,36 @@ const useNewsSearch = ({
   page = 1,
   pageSize = 20,
 } = {}) => {
-  const [articles, setArticles] = useState([]);
-  const [loading, setLoading] = useState(Boolean(query));
-  const [error, setError] = useState(null);
+  const hasQuery = Boolean(query);
 
-  useEffect(() => {
-    if (!query) {
-      setArticles([]);
-      setLoading(false);
-      setError("Es necesario ingresar una busqueda.");
-      return;
-    }
+  const queryResult = useQuery({
+    queryKey: ["articles", { query, sortBy, page, pageSize }],
+    queryFn: () =>
+      fetchEverything({
+        query,
+        sortBy,
+        page,
+        pageSize,
+      }),
+    enabled: hasQuery,
+    staleTime: 2 * 60 * 1000,
+  });
 
-    const loadArticles = async () => {
-      try {
-        setLoading(true);
-        const articlesResponse = await fetchEverything({
-          query,
-          sortBy,
-          page,
-          pageSize,
-        });
-
-        setArticles(articlesResponse ?? []);
-        setError(null);
-      } catch (err) {
-        setError(err?.message ?? "Error al consultar la API de The Guardian.");
-      } finally {
-        setLoading(false);
-      }
+  if (!hasQuery) {
+    return {
+      articles: [],
+      loading: false,
+      error: "Es necesario ingresar una busqueda.",
     };
+  }
 
-    loadArticles();
-  }, [query, sortBy, page, pageSize]);
-
-  return { articles, loading, error };
+  return {
+    articles: queryResult.data ?? [],
+    loading: queryResult.isLoading,
+    error:
+      queryResult.error?.message ??
+      (queryResult.error ? "Error al consultar la API de The Guardian." : null),
+  };
 };
 
 export default useNewsSearch;

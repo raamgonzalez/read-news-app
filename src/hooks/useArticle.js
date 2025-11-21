@@ -1,38 +1,29 @@
-import { useEffect, useState } from "react";
-
+import { useQuery } from "@tanstack/react-query";
 import { fetchArticleById } from "@services/guardianApi";
 
 const useArticle = (id) => {
-  const [article, setArticle] = useState(null);
-  const [loading, setLoading] = useState(Boolean(id));
-  const [error, setError] = useState(null);
+  const queryResult = useQuery({
+    queryKey: ["article", id],
+    queryFn: () => fetchArticleById(id),
+    enabled: Boolean(id),
+    staleTime: 5 * 60 * 1000,
+  });
 
-  useEffect(() => {
-    if (!id) {
-      setArticle(null);
-      setError("Es necesario indicar el id del artículo.");
-      setLoading(false);
-      return;
-    }
-
-    const loadArticle = async () => {
-      try {
-        setLoading(true);
-        const articleResponse = await fetchArticleById(id);
-        setArticle(articleResponse);
-        setError(null);
-      } catch (err) {
-        setArticle(null);
-        setError(err?.message ?? "Error al consultar el artículo.");
-      } finally {
-        setLoading(false);
-      }
+  if (!id) {
+    return {
+      article: null,
+      loading: false,
+      error: "Es necesario indicar el id del artículo.",
     };
+  }
 
-    loadArticle();
-  }, [id]);
-
-  return { article, loading, error };
+  return {
+    article: queryResult.data ?? null,
+    loading: queryResult.isLoading,
+    error:
+      queryResult.error?.message ??
+      (queryResult.error ? "Error al consultar el artículo." : null),
+  };
 };
 
 export default useArticle;
