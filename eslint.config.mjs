@@ -7,7 +7,11 @@ import { defineConfig } from "eslint/config";
 
 export default defineConfig([
   {
-    files: ["**/*.{js,mjs,cjs,jsx}"],
+    files: [
+      "**/*.{js,mjs,cjs,jsx}",
+      "**/__tests__/**/*.{js,jsx}",
+      "**/*.test.{js,jsx}",
+    ],
     ignores: ["node_modules/", "dist/", "build/", ".expo/"],
     languageOptions: {
       ecmaVersion: "latest",
@@ -20,6 +24,7 @@ export default defineConfig([
       globals: {
         ...globals.browser,
         ...globals.node,
+        ...globals.jest,
       },
     },
     plugins: {
