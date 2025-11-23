@@ -1,5 +1,5 @@
 import { forwardRef, useRef } from "react";
-import { Animated, Pressable, StyleSheet, View } from "react-native";
+import { Animated, Pressable, StyleSheet } from "react-native";
 
 const VARIANTS = {
   shrink: {
@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderRadius: 100,
     justifyContent: "center",
-    padding: 0, // ← FIX
+    padding: 0,
   },
   pressed: {
     opacity: 0.9,

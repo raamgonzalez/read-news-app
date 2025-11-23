@@ -20,7 +20,7 @@ const DetailArticleScreen = () => {
   const handleToggleFavorite = () => article && toggleFavorite(article);
 
   return (
-    <Screen paddingHorizontal={0} paddingVertical={0}>
+    <Screen paddingHorizontal={0}>
       <Stack.Screen
         options={{
           headerStyle: { backgroundColor: theme.colors.surface },

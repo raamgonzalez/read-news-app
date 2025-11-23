@@ -6,12 +6,15 @@ import {
   CircleInfoIcon,
   HomeIcon,
   UserIcon,
+  UsersIcon,
 } from "@ui/icons";
 import theme from "@constants/theme";
 import AnimatedTabButton from "@ui/AnimatedTabButton";
+import useAuthStore from "@store/useAuthStore";
 
 const Layout = () => {
   const { t } = useTranslation();
+  const { isAuthenticated } = useAuthStore();
 
   return (
     <Tabs
@@ -23,7 +26,6 @@ const Layout = () => {
           shadowColor: "transparent",
           borderTopWidth: 1,
           alignItems: "center",
-          paddingTop: 4,
         },
         headerStyle: {
           justifyContent: "center",
@@ -57,15 +59,26 @@ const Layout = () => {
         options={{
           title: t("tabs.bookmarks"),
           tabBarIcon: ({ color }) => <BookMarkIconOutline color={color} />,
-          tabBarButton: (props) => <AnimatedTabButton {...props} />,
+          // tabBarButton: (props) => <AnimatedTabButton {...props} />,
+          href: isAuthenticated() ? "/bookmarks" : null,
+        }}
+      />
+      {/* //TODO: REVISAR POR QUE PIERDE ANIMACIÓN */}
+      <Tabs.Screen
+        name="login"
+        options={{
+          title: t("tabs.login"),
+          tabBarIcon: ({ color }) => <UserIcon color={color} />,
+          href: isAuthenticated() ? null : "/login",
         }}
       />
       <Tabs.Screen
         name="users"
         options={{
           title: t("tabs.users"),
-          tabBarIcon: ({ color }) => <UserIcon color={color} />,
-          tabBarButton: (props) => <AnimatedTabButton {...props} />,
+          tabBarIcon: ({ color }) => <UsersIcon color={color} />,
+          // tabBarButton: (props) => <AnimatedTabButton {...props} />,
+          href: isAuthenticated() ? "/users" : null,
         }}
       />
     </Tabs>

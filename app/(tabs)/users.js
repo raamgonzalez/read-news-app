@@ -61,31 +61,33 @@ const UserScreen = () => {
 
   return (
     <Screen>
-      <FlatList
-        data={users}
-        keyExtractor={(item) => String(item.id)}
-        renderItem={({ item }) => <UserCard user={item} />}
-        ItemSeparatorComponent={renderSeparator}
-        contentContainerStyle={[
-          styles.listContainer,
-          (loading || error || users.length === 0) && styles.listCentered,
-        ]}
-        refreshControl={
-          <RefreshControl
-            refreshing={refreshing}
-            onRefresh={refresh}
-            tintColor={theme.colors.background}
-            colors={[theme.colors.background]}
-          />
-        }
-        ListEmptyComponent={
-          loading ? (
-            <ActivityIndicator size="large" color={theme.colors.background} />
-          ) : (
-            <EmptyState error={Boolean(error)} onRetry={reload} />
-          )
-        }
-      />
+      <View style={{ paddingTop: 8 }}>
+        <FlatList
+          data={users}
+          keyExtractor={(item) => String(item.id)}
+          renderItem={({ item }) => <UserCard user={item} />}
+          ItemSeparatorComponent={renderSeparator}
+          contentContainerStyle={[
+            styles.listContainer,
+            (loading || error || users.length === 0) && styles.listCentered,
+          ]}
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={refresh}
+              tintColor={theme.colors.background}
+              colors={[theme.colors.background]}
+            />
+          }
+          ListEmptyComponent={
+            loading ? (
+              <ActivityIndicator size="large" color={theme.colors.background} />
+            ) : (
+              <EmptyState error={Boolean(error)} onRetry={reload} />
+            )
+          }
+        />
+      </View>
     </Screen>
   );
 };
