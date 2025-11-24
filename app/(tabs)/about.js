@@ -7,6 +7,18 @@ import { useTranslation } from "react-i18next";
 
 const AboutScreen = () => {
   const { t } = useTranslation("translation");
+  const badges = [
+    "expo",
+    "router",
+    "reactNative",
+    "hooks",
+    "api",
+    "animations",
+    "reactQuery",
+    "zustand",
+    "tests",
+  ];
+  const featureItems = t("about.features", { returnObjects: true }) || [];
   return (
     <Screen>
       <ScrollView contentContainerStyle={styles.container}>
@@ -33,57 +45,38 @@ const AboutScreen = () => {
             {t("about.toolsTitle")}
           </TextStyle>
           <View style={styles.badges}>
-            <View style={styles.badge}>
-              <TextStyle
-                fontWeight={theme.fontWeights.bold}
-                color={theme.colors.background}
-              >
-                {t("about.badges.expo")}
-              </TextStyle>
-            </View>
-            <View style={styles.badge}>
-              <TextStyle
-                fontWeight={theme.fontWeights.bold}
-                color={theme.colors.background}
-              >
-                {t("about.badges.router")}
-              </TextStyle>
-            </View>
-            <View style={styles.badge}>
-              <TextStyle
-                fontWeight={theme.fontWeights.bold}
-                color={theme.colors.background}
-              >
-                {t("about.badges.reactNative")}
-              </TextStyle>
-            </View>
-            <View style={styles.badge}>
-              <TextStyle
-                fontWeight={theme.fontWeights.bold}
-                color={theme.colors.background}
-              >
-                {t("about.badges.hooks")}
-              </TextStyle>
-            </View>
-            <View style={styles.badge}>
-              <TextStyle
-                fontWeight={theme.fontWeights.bold}
-                color={theme.colors.background}
-              >
-                {t("about.badges.api")}
-              </TextStyle>
-            </View>
-            <View style={styles.badge}>
-              <TextStyle
-                fontWeight={theme.fontWeights.bold}
-                color={theme.colors.background}
-              >
-                {t("about.badges.animations")}
-              </TextStyle>
-            </View>
+            {badges.map((key) => (
+              <View key={key} style={styles.badge}>
+                <TextStyle
+                  fontWeight={theme.fontWeights.bold}
+                  color={theme.colors.background}
+                >
+                  {t(`about.badges.${key}`)}
+                </TextStyle>
+              </View>
+            ))}
           </View>
           <TextStyle style={styles.body}>{t("about.toolsBody")}</TextStyle>
         </View>
+
+        {featureItems.length ? (
+          <View style={styles.card}>
+            <TextStyle fontWeight={theme.fontWeights.bold}>
+              {t("about.featuresTitle")}
+            </TextStyle>
+            <TextStyle style={styles.body}>
+              {t("about.featuresDescription")}
+            </TextStyle>
+            <View style={styles.featureList}>
+              {featureItems.map((feature, index) => (
+                <View key={`${feature}-${index}`} style={styles.featureItem}>
+                  <TextStyle style={styles.featureBullet}>•</TextStyle>
+                  <TextStyle style={styles.featureText}>{feature}</TextStyle>
+                </View>
+              ))}
+            </View>
+          </View>
+        ) : null}
       </ScrollView>
     </Screen>
   );
@@ -114,9 +107,24 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: theme.colors.surface,
     flexGrow: 1,
-    gap: 16,
-    paddingBottom: 16,
-    paddingTop: 8,
+    gap: 24,
+    paddingVertical: 8,
+  },
+  featureBullet: {
+    color: theme.colors.background,
+  },
+  featureItem: {
+    flexDirection: "row",
+    gap: 8,
+  },
+  featureList: {
+    gap: 8,
+    marginTop: 12,
+  },
+  featureText: {
+    color: theme.colors.textSecondary,
+    flex: 1,
+    lineHeight: 20,
   },
 });
 

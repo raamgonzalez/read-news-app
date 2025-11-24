@@ -51,20 +51,18 @@ const DetailArticleScreen = () => {
           </TextStyle>
         ) : (
           <Screen>
-            {article?.author ? (
-              <TextStyle
-                fontSize={theme.fontSizes.author}
-                color={theme.colors.warning}
-              >
-                {article.author}
-              </TextStyle>
-            ) : null}
+            <TextStyle
+              fontSize={theme.fontSizes.author}
+              color={theme.colors.warning}
+            >
+              {article?.author}
+            </TextStyle>
             <Screen style={{ paddingHorizontal: 0, gap: 16 }}>
               <TextStyle fontSize={theme.fontSizes.heading} fontWeight="bold">
                 {article?.title}
               </TextStyle>
               <TextStyle color={theme.colors.textSecondary}>
-                {article.description}
+                {article?.description}
               </TextStyle>
             </Screen>
           </Screen>

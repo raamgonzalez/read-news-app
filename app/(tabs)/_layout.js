@@ -11,8 +11,7 @@ import {
 import theme from "@constants/theme";
 import AnimatedTabButton from "@ui/AnimatedTabButton";
 import useAuthStore from "@store/useAuthStore";
-
-const AVATAR_PLACEHOLDER = "https://i.pravatar.cc/100?img=32";
+import { AVATAR_PLACEHOLDER } from "@constants/mocks";
 
 const Layout = () => {
   const { t } = useTranslation();
@@ -33,14 +32,7 @@ const Layout = () => {
           shadowColor: "#000",
           shadowOpacity: 0.12,
           shadowRadius: 12,
-          shadowOffset: { width: 0, height: 4 },
           borderTopWidth: 0,
-          borderRadius: 32,
-          alignItems: "center",
-          justifyContent: "center",
-          position: "absolute",
-          marginHorizontal: 16,
-          marginBottom: 16,
           height: 64,
           paddingHorizontal: 12,
           paddingVertical: 8,

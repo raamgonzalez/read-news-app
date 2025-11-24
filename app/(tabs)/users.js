@@ -10,28 +10,7 @@ import Screen from "@ui/Screen";
 import TextStyle from "@ui/TextStyle";
 import theme from "@constants/theme";
 import useUsers from "@hooks/useUsers";
-
-const UserCard = ({ user }) => {
-  const nameParts = [user.firstname, user.lastname].filter(Boolean);
-  const fullName = nameParts.join(" ") || "Usuario sin nombre";
-  const city = user.address?.city;
-  const company = user.company?.name;
-
-  return (
-    <Pressable
-      style={({ pressed }) => [styles.card, pressed && styles.cardTap]}
-    >
-      <TextStyle fontWeight={theme.fontWeights.bold} fontSize={16}>
-        {fullName}
-      </TextStyle>
-      <TextStyle color={theme.colors.textSecondary}>{user.email}</TextStyle>
-      <View style={styles.metaRow}>
-        <TextStyle color={theme.colors.textSecondary}>{company}</TextStyle>
-        <TextStyle color={theme.colors.textSecondary}>{city}</TextStyle>
-      </View>
-    </Pressable>
-  );
-};
+import UserCard from "@components/Users/UserCard";
 
 const EmptyState = ({ error, onRetry }) => (
   <View style={styles.emptyState}>
@@ -54,10 +33,12 @@ const EmptyState = ({ error, onRetry }) => (
   </View>
 );
 
+const renderSeparator = () => <View style={styles.separator} />;
+
 const UserScreen = () => {
   const { users, loading, error, refreshing, refresh, reload } = useUsers();
 
-  const renderSeparator = () => <View style={styles.separator} />;
+  const ITEM_HEIGHT = 112;
 
   return (
     <Screen>
@@ -67,6 +48,7 @@ const UserScreen = () => {
           keyExtractor={(item) => String(item.id)}
           renderItem={({ item }) => <UserCard user={item} />}
           ItemSeparatorComponent={renderSeparator}
+          initialNumToRender={6}
           contentContainerStyle={[
             styles.listContainer,
             (loading || error || users.length === 0) && styles.listCentered,
@@ -79,6 +61,11 @@ const UserScreen = () => {
               colors={[theme.colors.background]}
             />
           }
+          getItemLayout={(_, index) => ({
+            length: ITEM_HEIGHT,
+            offset: ITEM_HEIGHT * index,
+            index,
+          })}
           ListEmptyComponent={
             loading ? (
               <ActivityIndicator size="large" color={theme.colors.background} />
@@ -93,20 +80,11 @@ const UserScreen = () => {
 };
 
 const styles = StyleSheet.create({
-  card: {
-    backgroundColor: theme.colors.surface,
-    borderColor: theme.colors.background,
-    borderRadius: 14,
-    borderWidth: 1,
-    padding: 16,
-  },
-  cardTap: {
-    opacity: 0.92,
-    transform: [{ scale: 0.995 }],
-  },
   emptyState: {
     alignItems: "center",
+    flex: 1,
     gap: 12,
+    justifyContent: "center",
     paddingHorizontal: 32,
     paddingVertical: 24,
   },
@@ -116,11 +94,6 @@ const styles = StyleSheet.create({
   },
   listContainer: {
     paddingVertical: 8,
-  },
-  metaRow: {
-    flexDirection: "row",
-    gap: 8,
-    marginTop: 6,
   },
   retryButton: {
     backgroundColor: theme.colors.accent,

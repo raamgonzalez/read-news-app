@@ -14,7 +14,7 @@ describe("NameLogo", () => {
     mockLink.mockClear();
   });
 
-  it("Renderiza el texto Prisma News con los estilos por defecto", () => {
+  test("Renderiza el texto Prisma News con los estilos por defecto", () => {
     const { getByText } = render(<NameLogo />);
     const texto = getByText("Prisma News");
 
@@ -29,7 +29,7 @@ describe("NameLogo", () => {
     );
   });
 
-  it("Al aplicar color modifica el color del logo", () => {
+  test("Al aplicar color modifica el color del logo", () => {
     const { getByText } = render(<NameLogo color="#aa00ff" />);
 
     expect(getByText("Prisma News")).toHaveStyle({

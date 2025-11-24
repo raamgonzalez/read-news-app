@@ -10,9 +10,7 @@ const useFavoritesNewsStore = create(
         set((state) => {
           if (!article?.id) return state;
           const exists = state.favorites.some((item) => item.id === article.id);
-          return exists
-            ? state
-            : { favorites: [...state.favorites, article] };
+          return exists ? state : { favorites: [...state.favorites, article] };
         }),
 
       removeFavorite: (id) =>

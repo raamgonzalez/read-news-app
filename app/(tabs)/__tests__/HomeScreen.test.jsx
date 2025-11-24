@@ -1,5 +1,3 @@
-import React from "react";
-import { Text, TextInput } from "react-native";
 import { fireEvent, render } from "@testing-library/react-native";
 import HomeScreen from "../index";
 import useNewsSearch from "@hooks/useNewsSearch";

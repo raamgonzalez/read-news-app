@@ -16,7 +16,7 @@ describe("AnimatedIconButton", () => {
     springSpy.mockRestore();
   });
 
-  it("El componente ejecuta la animación shrink al presionar y soltar", () => {
+  test("El componente ejecuta la animación shrink al presionar y soltar", () => {
     const { getByText } = render(
       <AnimatedIconButton testID="icon-button">
         <Text>Icono</Text>
@@ -52,7 +52,7 @@ describe("AnimatedIconButton", () => {
     );
   });
 
-  it("El componente usa la configuración pop cuando se indica el variant", () => {
+  test("El componente usa la configuración pop cuando se indica el variant", () => {
     const { getByText } = render(
       <AnimatedIconButton variant="pop">
         <Text>Icono</Text>

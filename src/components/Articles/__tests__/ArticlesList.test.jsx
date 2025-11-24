@@ -10,7 +10,7 @@ describe("ArticlesList", () => {
     { id: "2", title: "Segunda nota" },
   ];
 
-  it("usa AnimatedArticleItem por defecto", () => {
+  test("usa AnimatedArticleItem por defecto", () => {
     const { getByText, getByTestId } = render(
       <ArticlesList articles={articles} />
     );
@@ -21,7 +21,7 @@ describe("ArticlesList", () => {
     getByTestId("animated-2");
   });
 
-  it("usa BookmarkArticleItem cuando variant es bookmark", () => {
+  test("usa BookmarkArticleItem cuando variant es bookmark", () => {
     const { getByText, getByTestId } = render(
       <ArticlesList articles={articles} variant="bookmark" />
     );

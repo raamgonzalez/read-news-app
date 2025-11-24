@@ -6,29 +6,20 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from "react-native";
+import { useRouter } from "expo-router";
 import Screen from "@ui/Screen";
 import TextStyle from "@ui/TextStyle";
 import theme from "@constants/theme";
-import * as yup from "yup";
-import useAuthStore from "../../src/store/useAuthStore";
-import AnimatedIconButton from "../../src/ui/AnimatedIconButton";
-
-const loginSchema = yup.object({
-  email: yup
-    .string()
-    .email("Ingresa un email válido")
-    .required("El email es obligatorio"),
-  password: yup
-    .string()
-    .min(6, "La contraseña debe tener al menos 6 caracteres")
-    .required("La contraseña es obligatoria"),
-});
+import useAuthStore from "@store/useAuthStore";
+import AnimatedIconButton from "@ui/AnimatedIconButton";
+import { loginSchema } from "@validation/authSchema";
 
 const LoginScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
 
+  const router = useRouter();
   const { setSession } = useAuthStore();
 
   const clearError = (field) => {
@@ -38,13 +29,17 @@ const LoginScreen = () => {
   };
 
   const handleSubmit = async () => {
-    // TODO: integrar con flujo real de autenticacion
     try {
       await loginSchema.validate({ email, password }, { abortEarly: false });
       setErrors({});
-      const mockUser = { email };
+      const mockUser = {
+        email,
+        name: email.split("@")[0] || "Invitado",
+        avatar: `https://i.pravatar.cc/150?u=${encodeURIComponent(email)}`,
+      };
       const mockToken = "demo-token";
       setSession({ user: mockUser, token: mockToken });
+      router.replace("/user");
     } catch (validationError) {
       const formattedErrors = validationError.inner.reduce((acc, err) => {
         if (err.path && !acc[err.path]) {
@@ -149,7 +144,7 @@ const styles = StyleSheet.create({
   },
   input: {
     backgroundColor: theme.colors.surface,
-    borderColor: theme.colors.textSecondary + "50",
+    borderColor: theme.colors.border,
     borderRadius: 10,
     borderWidth: 1,
     paddingHorizontal: 12,
