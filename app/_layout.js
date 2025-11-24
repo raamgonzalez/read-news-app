@@ -1,13 +1,13 @@
 import { Stack } from "expo-router";
 import theme from "@constants/theme";
-import { Logo } from "@ui/icons";
+import { Logo } from "@constants/icons";
 import NameLogo from "@ui/NameLogo";
 import { Pressable, StatusBar, View } from "react-native";
 import { I18nextProvider, useTranslation } from "react-i18next";
 import TextStyle from "@ui/TextStyle";
 import "../src/i18n";
 import i18n from "../src/i18n";
-import QueryProvider from "../src/providers/QueryProvider";
+import QueryProvider from "@providers/QueryProvider";
 
 const Layout = () => {
   const { i18n: i18 } = useTranslation();

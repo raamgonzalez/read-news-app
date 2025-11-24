@@ -1,5 +1,5 @@
 import { View } from "react-native";
-import { ShareIcon } from "@ui/icons";
+import { ShareIcon } from "@constants/icons";
 import theme from "@constants/theme";
 import AnimatedIconButton from "@ui/AnimatedIconButton";
 import IconBookMark from "./IconBookmark";

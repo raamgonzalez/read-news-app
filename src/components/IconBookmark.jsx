@@ -1,6 +1,6 @@
 import theme from "@constants/theme";
 import AnimatedIconButton from "@ui/AnimatedIconButton";
-import { BookMarkIconOutline, BookMarkIconSolid } from "@ui/icons";
+import { BookMarkIconOutline, BookMarkIconSolid } from "@constants/icons";
 
 const IconBookMark = ({ toggleBookmark, bookmarked, size }) => {
   return (

@@ -4,17 +4,29 @@
     "description1": "Aplicación móvil para explorar titulares recientes, seguir artículos y leerlos con una interfaz limpia, rápida y sin distracciones.",
     "description2": "Usa la API pública de The Guardian para búsqueda en tiempo real, carga bajo demanda y navegación con tabs optimizada para iOS y Android.",
     "authorTitle": "Autor y objetivo",
-    "authorBody": "Proyecto desarrollado por Ramses Gonzalez para Conexa como muestra de arquitectura con React Native y Expo, manejo de estado con hooks y patrones reutilizables orientados a productos editoriales.",
+    "authorBody": "Proyecto desarrollado por Ramses Gonzalez para Conexa como muestra de arquitectura con React Native + Expo, manejo de estado con hooks y patrones reutilizables orientados a productos editoriales.",
     "toolsTitle": "Herramientas y stack",
-    "toolsBody": "Se construyó con Expo Router para las rutas de tabs y stacks, hooks personalizados para peticiones (noticias y usuarios), componentes de UI reutilizables y animaciones en botones para mejorar el feedback de interacción.",
+    "toolsBody": "Se construyó con Expo Router para las rutas de tabs/stacks, React Query para consumir noticias y usuarios, Zustand + AsyncStorage para la sesión, validaciones con Yup y pruebas con Jest + Testing Library.",
     "badges": {
       "expo": "Expo",
       "router": "Expo Router",
       "reactNative": "React Native",
       "hooks": "Hooks",
       "api": "Guardian API",
-      "animations": "Animaciones"
-    }
+      "animations": "Animaciones",
+      "reactQuery": "React Query",
+      "zustand": "Zustand",
+      "tests": "Jest + RTL"
+    },
+    "featuresTitle": "Lo que incluye este challenge",
+    "featuresDescription": "Resumen de las piezas relevantes agregadas para la evaluación técnica:",
+    "features": [
+      "Flujo de autenticación con formularios validados, estado global en Zustand y persistencia con AsyncStorage.",
+      "Tabs diferenciadas: Home/About públicas, Login solo sin sesión y Bookmarks/Users/Profile solo para usuarios logueados.",
+      "Pantalla Home probada con Jest + Testing Library, mockeando hooks y validando interacciones reales del TextInput.",
+      "Listado de noticias y usuarios alimentado por React Query y servicios configurados mediante alias en Babel/js.config.",
+      "UI reutilizable (InputSearch, AnimatedIconButton, Skeletons, etc.) con theming centralizado y animaciones simples."
+    ]
   },
   "tabs": {
     "saved": "Guardados",
@@ -22,6 +34,7 @@
     "home": "Inicio",
     "about": "Acerca de",
     "login": "Registro",
-    "users": "Usuarios"
+    "users": "Usuarios",
+    "user": "Perfil"
   }
 }

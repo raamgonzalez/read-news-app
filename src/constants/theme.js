@@ -1,9 +1,4 @@
 const theme = {
-  appBar: {
-    primary: "#111111",
-    textSecondary: "#d0d0d0",
-    textPrimary: "#ffffff",
-  },
   colors: {
     background: "#052863",
     surface: "#ffffff",
@@ -14,6 +9,7 @@ const theme = {
     accent: "#fee501",
     skeletonBlock: "#e4ded6",
     skeletonLine: "#d9d2ca",
+    border: "#1c1b1a33",
   },
   fontSizes: {
     body: 14,
@@ -23,7 +19,6 @@ const theme = {
   },
   fonts: {
     main: "System",
-    serif: "Georgia",
   },
   fontWeights: {
     normal: "400",

@@ -6,21 +6,34 @@
     "authorTitle": "Author and goal",
     "authorBody": "Project developed by Ramses Gonzalez for Conexa as a sample of React Native + Expo architecture, state managed with hooks and reusable patterns for editorial products.",
     "toolsTitle": "Tools and stack",
-    "toolsBody": "Built with Expo Router for tab and stack routes, custom hooks for fetching (news and users), reusable UI components and button animations to improve interaction feedback.",
+    "toolsBody": "Built with Expo Router for tab/stack routes, React Query for news & users, Zustand + AsyncStorage for auth, Yup validations and Jest + Testing Library for coverage.",
     "badges": {
       "expo": "Expo",
       "router": "Expo Router",
       "reactNative": "React Native",
       "hooks": "Hooks",
       "api": "Guardian API",
-      "animations": "Animations"
-    }
+      "animations": "Animations",
+      "reactQuery": "React Query",
+      "zustand": "Zustand",
+      "tests": "Jest + RTL"
+    },
+    "featuresTitle": "Highlights of this challenge",
+    "featuresDescription": "Key pieces implemented for the technical exercise:",
+    "features": [
+      "Auth flow with validated forms, global state in Zustand and persistence through AsyncStorage.",
+      "Separated tab access: Home/About always public, Login only when signed out, Bookmarks/Users/Profile only when authenticated.",
+      "Home screen covered with Jest + Testing Library, mocking hooks and asserting real TextInput interactions.",
+      "News and users fed by React Query plus API services wired via Babel/js.config aliases.",
+      "Reusable UI set (InputSearch, AnimatedIconButton, Skeletons, etc.) with centralized theming and lightweight animations."
+    ]
   },
   "tabs": {
     "bookmarks": "Bookmarks",
     "home": "Home",
     "about": "About",
     "login": "Login",
-    "users": "Users"
+    "users": "Users",
+    "user": "Profile"
   }
 }

@@ -44,14 +44,12 @@ const ArticleSkeleton = ({ variant = "feed", placeholders }) => {
   };
 
   const total =
-    placeholders ??
-    DEFAULT_PLACEHOLDERS[variant] ??
-    DEFAULT_PLACEHOLDERS.feed;
+    placeholders ?? DEFAULT_PLACEHOLDERS[variant] ?? DEFAULT_PLACEHOLDERS.feed;
 
   const items = Array.from({ length: total }, (_, index) => index);
 
   return (
-    <View style={styles.container}>
+    <View style={styles.container} testID="article-skeleton">
       {items.map((item) =>
         variant === "bookmark" ? (
           <View key={item} style={styles.bookmarkRow}>
@@ -76,12 +74,27 @@ const ArticleSkeleton = ({ variant = "feed", placeholders }) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    gap: 20,
-    paddingTop: 12,
+  bookmarkMeta: {
+    flex: 1,
+    gap: 8,
+  },
+  bookmarkRow: {
+    alignItems: "center",
+    flexDirection: "row",
+    gap: 12,
+  },
+  bookmarkThumb: {
+    backgroundColor: theme.colors.skeletonBlock,
+    borderRadius: theme.borderRadius.medium,
+    height: 64,
+    width: 64,
   },
   card: {
     gap: 12,
+  },
+  container: {
+    gap: 20,
+    paddingTop: 12,
   },
   hero: {
     backgroundColor: theme.colors.skeletonBlock,
@@ -104,21 +117,6 @@ const styles = StyleSheet.create({
   meta: {
     gap: 8,
     paddingHorizontal: 4,
-  },
-  bookmarkRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 12,
-  },
-  bookmarkThumb: {
-    backgroundColor: theme.colors.skeletonBlock,
-    borderRadius: theme.borderRadius.medium,
-    height: 64,
-    width: 64,
-  },
-  bookmarkMeta: {
-    flex: 1,
-    gap: 8,
   },
 });
 

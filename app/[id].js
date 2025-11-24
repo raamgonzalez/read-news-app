@@ -5,7 +5,7 @@ import Screen from "@ui/Screen";
 import TextStyle from "@ui/TextStyle";
 import theme from "@constants/theme";
 import useArticle from "@hooks/useArticle";
-import { BackArrowIcon } from "@ui/icons";
+import { BackArrowIcon } from "@constants/icons";
 import AnimatedIconButton from "@ui/AnimatedIconButton";
 
 import HeaderRightDetail from "@components/HeaderRightDetail";

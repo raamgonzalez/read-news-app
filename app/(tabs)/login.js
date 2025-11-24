@@ -1,6 +1,5 @@
 import { useState } from "react";
 import {
-  Pressable,
   StyleSheet,
   TextInput,
   View,
@@ -10,20 +9,51 @@ import {
 import Screen from "@ui/Screen";
 import TextStyle from "@ui/TextStyle";
 import theme from "@constants/theme";
+import * as yup from "yup";
 import useAuthStore from "../../src/store/useAuthStore";
 import AnimatedIconButton from "../../src/ui/AnimatedIconButton";
+
+const loginSchema = yup.object({
+  email: yup
+    .string()
+    .email("Ingresa un email válido")
+    .required("El email es obligatorio"),
+  password: yup
+    .string()
+    .min(6, "La contraseña debe tener al menos 6 caracteres")
+    .required("La contraseña es obligatoria"),
+});
 
 const LoginScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errors, setErrors] = useState({});
 
   const { setSession } = useAuthStore();
 
-  const handleSubmit = () => {
+  const clearError = (field) => {
+    if (errors[field]) {
+      setErrors((prev) => ({ ...prev, [field]: undefined }));
+    }
+  };
+
+  const handleSubmit = async () => {
     // TODO: integrar con flujo real de autenticacion
-    const mockUser = { email };
-    const mockToken = "demo-token";
-    setSession({ user: mockUser, token: mockToken });
+    try {
+      await loginSchema.validate({ email, password }, { abortEarly: false });
+      setErrors({});
+      const mockUser = { email };
+      const mockToken = "demo-token";
+      setSession({ user: mockUser, token: mockToken });
+    } catch (validationError) {
+      const formattedErrors = validationError.inner.reduce((acc, err) => {
+        if (err.path && !acc[err.path]) {
+          acc[err.path] = err.message;
+        }
+        return acc;
+      }, {});
+      setErrors(formattedErrors);
+    }
   };
 
   return (
@@ -46,12 +76,20 @@ const LoginScreen = () => {
             <TextStyle fontWeight={theme.fontWeights.semiBold}>Email</TextStyle>
             <TextInput
               value={email}
-              onChangeText={setEmail}
+              onChangeText={(text) => {
+                setEmail(text);
+                clearError("email");
+              }}
               placeholder="tuemail@ejemplo.com"
               autoCapitalize="none"
               keyboardType="email-address"
-              style={styles.input}
+              style={[styles.input, errors.email && styles.inputError]}
             />
+            {errors.email ? (
+              <TextStyle color={theme.colors.warning} style={styles.errorText}>
+                {errors.email}
+              </TextStyle>
+            ) : null}
           </View>
           <View style={{ gap: 4 }}>
             <TextStyle fontWeight={theme.fontWeights.semiBold}>
@@ -59,11 +97,19 @@ const LoginScreen = () => {
             </TextStyle>
             <TextInput
               value={password}
-              onChangeText={setPassword}
+              onChangeText={(text) => {
+                setPassword(text);
+                clearError("password");
+              }}
               placeholder="********"
               secureTextEntry
-              style={styles.input}
+              style={[styles.input, errors.password && styles.inputError]}
             />
+            {errors.password ? (
+              <TextStyle color={theme.colors.warning} style={styles.errorText}>
+                {errors.password}
+              </TextStyle>
+            ) : null}
           </View>
 
           <AnimatedIconButton
@@ -91,6 +137,9 @@ const LoginScreen = () => {
 };
 
 const styles = StyleSheet.create({
+  errorText: {
+    marginBottom: 4,
+  },
   form: {
     gap: 8,
     marginTop: 24,
@@ -105,6 +154,9 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     paddingHorizontal: 12,
     paddingVertical: 10,
+  },
+  inputError: {
+    borderColor: theme.colors.warning,
   },
 });
 
