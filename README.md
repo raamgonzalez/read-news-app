@@ -14,11 +14,13 @@ Aplicación móvil construida con **Expo Router** y **React Native** que permite
 
 ## Decisiones de diseño
 
-1. **Tabs protegidas**: Home/About siempre visibles; Bookmarks/Users/Profile solo con token; Login únicamente sin sesión.
-2. **Perfil enriquecido**: tras el login se crea un usuario mock con avatar `pravatar`, detalles de sesión y botón de logout que vuelve a Home.
-3. **Validaciones modulares**: los esquemas (Yup) viven en `src/validation`, lo que facilita reuso en futuras pantallas.
-4. **UI reutilizable**: `Screen`, `TextStyle`, `AnimatedIconButton`, `InputSearch`, `UserCard` y skeletons comparten estilos definidos en `theme`.
-5. **Internacionalización**: textos en `src/i18n/locales/{es,en}.json`, consumidos principalmente por la pantalla About.
+1. **Patrón modular (containers + UI)**: la lógica de datos vive en hooks/servicios (`useNewsSearch`, `useUsers`, Guardian API) y las pantallas consumen componentes presentacionales (`UserCard`, `InputSearch`, `AnimatedIconButton`). Los alias (`@components`, `@hooks`, `@services`, `@validation`, etc.) refuerzan esta separación.
+2. **Tabs protegidas**: Home/About siempre visibles; Bookmarks/Users/Profile solo con token; Login únicamente sin sesión.
+3. **Perfil enriquecido**: tras el login se crea un usuario mock con avatar `pravatar`, detalles de sesión y botón de logout que vuelve a Home.
+4. **Validaciones modulares**: los esquemas (Yup) viven en `src/validation`, lo que facilita reuso en futuras pantallas.
+5. **UI reutilizable**: `Screen`, `TextStyle`, `AnimatedIconButton`, `InputSearch`, `UserCard` y skeletons comparten estilos definidos en `theme`.
+6. **Internacionalización**: textos en `src/i18n/locales/{es,en}.json`, consumidos principalmente por la pantalla About.
+7. **Floating Tab Bar**: barra inferior con estilo “pill” flotante (sombra + `tabBarHideOnKeyboard`) y avatar dinámico en la pestaña de perfil.
 
 ## Estructura relevante
 
