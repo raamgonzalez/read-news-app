@@ -68,7 +68,11 @@ const UserScreen = () => {
           })}
           ListEmptyComponent={
             loading ? (
-              <ActivityIndicator size="large" color={theme.colors.background} />
+              <ActivityIndicator
+                testID="users-loading"
+                size="large"
+                color={theme.colors.background}
+              />
             ) : (
               <EmptyState error={Boolean(error)} onRetry={reload} />
             )

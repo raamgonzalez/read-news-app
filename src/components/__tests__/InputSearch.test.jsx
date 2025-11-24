@@ -39,7 +39,7 @@ describe("InputSearch", () => {
     const input = getByPlaceholderText("Buscar noticias");
 
     expect(input).toHaveStyle({
-      borderColor: theme.colors.textSecondary,
+      borderColor: theme.colors.border,
     });
 
     fireEvent(input, "focus");
@@ -50,7 +50,7 @@ describe("InputSearch", () => {
 
     fireEvent(input, "blur");
     expect(input).toHaveStyle({
-      borderColor: theme.colors.textSecondary,
+      borderColor: theme.colors.border,
     });
   });
 });

@@ -70,6 +70,7 @@ const LoginScreen = () => {
           <View style={{ gap: 4 }}>
             <TextStyle fontWeight={theme.fontWeights.semiBold}>Email</TextStyle>
             <TextInput
+              testID="login-email"
               value={email}
               onChangeText={(text) => {
                 setEmail(text);
@@ -91,6 +92,7 @@ const LoginScreen = () => {
               Contrasena
             </TextStyle>
             <TextInput
+              testID="login-password"
               value={password}
               onChangeText={(text) => {
                 setPassword(text);
