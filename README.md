@@ -1,37 +1,40 @@
 # Read News App
 
-Aplicación móvil construida con **Expo Router** y **React Native** que permite buscar noticias, explorar usuarios y gestionar una sesión básica para habilitar secciones protegidas como Favoritos y Perfil.
+Aplicación móvil construida con **Expo Router** y **React Native** que permite buscar noticias, explorar usuarios y gestionar una sesión mock para habilitar secciones protegidas como Favoritos y Perfil.
 
 ## Stack principal
 
-- **Expo Router + React Native 0.81** – Navegación con estructura de tabs (app/(tabs)) y stacks.
-- **React Query** – Cacheo y fetching de noticias/usuarios (hooks `useNewsSearch`, `useUsers`).
-- **Zustand + AsyncStorage** – Manejo de sesión mock (login/profile) y favoritos.
-- **Yup** – Validación del formulario de login.
-- **Testing Library + Jest** – Pruebas de la pantalla Home con mocks de hooks/componentes.
-- **React Native Animated** – Animaciones de botones (`AnimatedIconButton`) y skeletons.
-- **Module alias (babel/js.config)** – Imports relativos (`@components`, `@ui`, etc.).
+- **Expo Router + React Native 0.81** – Navegación basada en directorios `app/(tabs)` y stacks.
+- **React Query** – Fetching/caching de noticias y usuarios (`useNewsSearch`, `useUsers`).
+- **Zustand + AsyncStorage** – Persistencia de sesión mock y favoritos.
+- **Yup** (centralizado en `src/validation/authSchema.js`) – Validación de formularios.
+- **Testing Library + Jest** – Pruebas de HomeScreen, UsersScreen, LoginScreen y UserScreen con hooks/stores mockeados.
+- **React Native Animated** – Botones animados y skeletons.
+- **Module alias (babel/js.config)** – Imports `@components`, `@ui`, `@validation`, etc.
 
 ## Decisiones de diseño
 
-1. **Tabs protegidas**: Home/About son públicas; Bookmarks/Users/Profile requieren token. Login aparece solo cuando no hay sesión.
-2. **Perfil simplificado**: tras el login se genera un usuario mock con avatar `pravatar` para mostrar más contexto y permitir cerrar sesión (redirige a Home).
-3. **Inputs realistas**: el campo de búsqueda en Home se testea sin mockear, validando `TextInput` real con `testID`/`name`.
-4. **UI reutilizable**: `Screen`, `TextStyle`, `AnimatedIconButton`, `InputSearch`, `ArticlesList`/`Skeleton` centralizan estilos y comportamientos.
-5. **Internacionalización**: textos definidos en `src/i18n` (EN/ES) y cargados desde `about.js`.
-6. **Floating Tab Bar**: la barra inferior tiene estilo de “pill” flotante, con avatar en la pestaña de perfil.
+1. **Tabs protegidas**: Home/About siempre visibles; Bookmarks/Users/Profile solo con token; Login únicamente sin sesión.
+2. **Perfil enriquecido**: tras el login se crea un usuario mock con avatar `pravatar`, detalles de sesión y botón de logout que vuelve a Home.
+3. **Validaciones modulares**: los esquemas (Yup) viven en `src/validation`, lo que facilita reuso en futuras pantallas.
+4. **UI reutilizable**: `Screen`, `TextStyle`, `AnimatedIconButton`, `InputSearch`, `UserCard` y skeletons comparten estilos definidos en `theme`.
+5. **Internacionalización**: textos en `src/i18n/locales/{es,en}.json`, consumidos principalmente por la pantalla About.
 
 ## Estructura relevante
 
 ```
 app/
-  _layout.js           # Stack raíz con header e i18n
-  (tabs)/              # Rutas de tabs (home, about, login, bookmars, users, user)
+  _layout.js           # Stack raíz con i18n + QueryProvider
+  (tabs)/              # Rutas: home, about, login, bookmarks, users, user
 src/
-  components/          # UI y artículos
+  components/          # UI compartida (incluyendo Users/UserCard)
   hooks/               # Hooks de datos (React Query)
   store/               # Zustand (auth + favoritos)
+  providers/           # QueryProvider (React Query)
+  services/            # Llamadas HTTP/guards (p.ej. guardian API, users)
+  lib/                 # Configuración compartida (queryClient, helpers)
   ui/                  # Componentes de estilo/animaciones
+  validation/          # Esquemas Yup (authSchema)
   i18n/                # Configuración de traducciones
 ```
 
@@ -45,29 +48,27 @@ src/
 
 ```bash
 npm install
-# Inicia el bundle Metro + Expo
+# Inicia Metro + Expo
 npm start
 
-# Shortcuts desde Expo:
-# presiona "a" para Android, "i" para iOS, "w" para web.
+# Atajos desde Expo:
+# "a" Android, "i" iOS, "w" Web
 ```
 
-Variables extra no son necesarias; las APIs públicas (Guardian/JSONPlaceholder) funcionan sin claves.
+No se requieren variables adicionales: Guardian/JSONPlaceholder son APIs públicas.
 
 ## Pruebas
 
 ```bash
-npm test -- HomeScreen   # ejecuta las pruebas de la pantalla principal
-# o simplemente
-npm test
+npm test -- HomeScreen      # HomeScreen (skeleton/list/input)
+npm test -- UsersScreen     # estados de la pestaña usuarios
+npm test -- LoginScreen     # validación + submit
+npm test -- UserScreen      # render y logout del perfil
+npm test                    # suite completa
 ```
 
-Las pruebas usan `jest-expo` y `@testing-library/react-native` con mocks de hooks/componentes para aislar la lógica.
+Las pruebas usan `jest-expo` y `@testing-library/react-native` con mocks de hooks/stores (`useNewsSearch`, `useUsers`, `useAuthStore`).
 
 ## Linting / formato
 
-El proyecto incluye configuración de ESLint/Prettier (ver `eslint.config.mjs`). Para ejecutar:
-
-```bash
-npm run lint   # (agregar script si se desea)
-```
+Proyecto configurado con ESLint/Prettier (`eslint.config.mjs`). Agrega un script `lint` en `package.json` si deseas ejecutarlo vía `npm run lint`.
